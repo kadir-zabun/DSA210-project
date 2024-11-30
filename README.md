@@ -7,7 +7,7 @@ This project will analyze the relationship between my Spotify listening habits a
 
 
 ## Motivation ##
-I often listen to music while walking or commuting, and I believe this habit may influence my physical activity and energy expenditure. This project aims to explore the correlation between my Spotify listening habits and my daily physical activities to understand how music affects my behavior and energy usage.
+I often listen to music while walking or commuting, and I believe this habit may influence my physical activity and energy expenditure. This project aims to explore the correlation, if any, between my Spotify listening habits and my daily physical activities to understand how music affects my behavior and energy usage.
 
 ## Data Source ##
 ### Spotify Data: ###
