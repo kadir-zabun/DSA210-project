@@ -30,7 +30,7 @@ This data provided a quantitative measure of my physical activity, which I analy
 
 The timestamps from both datasets were aligned to find overlaps between music listening sessions and physical activity. This allowed for a more detailed analysis of whether certain music listening habits corresponded with variations in step count or other activity metrics.
 
-# Note
+## Note
 
 Google Maps data was initially considered but not used in this analysis, as the focus remained solely on the Spotify listening history and step count data from the Apple Health app.
 
