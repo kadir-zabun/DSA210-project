@@ -26,11 +26,11 @@ I collected physical activity data from the iPhone Health App, focusing on the s
 
 This data provided a quantitative measure of my physical activity, which I analyzed alongside the Spotify listening data to identify potential patterns or correlations.
 
-Data Integration
+## Data Integration
 
 The timestamps from both datasets were aligned to find overlaps between music listening sessions and physical activity. This allowed for a more detailed analysis of whether certain music listening habits corresponded with variations in step count or other activity metrics.
 
-Note
+# Note
 
 Google Maps data was initially considered but not used in this analysis, as the focus remained solely on the Spotify listening history and step count data from the Apple Health app.
 
