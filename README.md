@@ -3,7 +3,7 @@ Sabanci University DSA 210 Introduction to Data Science Course Fall 2024-2025 Te
 # Spotify and Activity Data Analysis
 
 ## Description ##
-This project analyzes the relationship between my step count and the amount of time I spent listening music. First I looked at the distribution of my daily step count and the distribution of the amount of time I spent listening to music. I looked at the monthly and the daily distributions so that I can analyze the data more accurately. I had almost a 7 year data from my streaming history but there was not quite available data for my step count. So while visualizing the data seperately, I used all the data for each graph. When I combined them to see the whether there is a relationship between them, I used only the time periods when each data are available and there is no missing slots. 
+This project analyzes the relationship between my step count and the amount of time I spent listening music. First I looked at the distribution of my daily step count and the distribution of the amount of time I spent listening to music. I looked at the monthly and the daily distributions so that I can analyze the data more accurately. I had almost 7 year data from my streaming history but there was not quite available data for my step count. So while visualizing the data seperately, I used all the data for each graph but when I combined them to see whether there is a relationship between them, I used only the time periods when each data are available and there is no missing slots. 
 
 
 ## Motivation ##
@@ -22,7 +22,7 @@ This data allowed me to analyze my listening habits, such as the frequency of re
 
 ### Apple Health Data ###
 
-I collected physical activity data from the iPhone Health App, focusing on the step count. I used this data because other data parameters such as walking distance, energy burned may have changed according to other parameters such as height and weight during this period, causing the data to be wrongly analzed.
+I collected physical activity data from the iPhone Health App, focusing on the step count. I used this data because other data parameters such as walking distance, energy burned may have changed according to other parameters such as height and weight during this period, causing the data to be wrongly analyzed.
 
 This data provided a quantitative measure of my physical activity, which I analyzed alongside the Spotify listening data to identify potential patterns or correlations.
 
