@@ -1,4 +1,4 @@
-# number of different songs listened in a month
+# average listening amount per song monthly
 
 import json
 import pandas as pd
