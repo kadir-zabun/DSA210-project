@@ -1,63 +1,60 @@
-# the average listening time per song per month
+# number of different songs listened in a month
 
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
-import glob
 
-# Define the folder path where the JSON files are stored
-folder_path = '/Users/kadirzabun/Desktop/Courses/DSA 210/Project/Python Files/Spotify Extended Streaming History/'  # Replace with the actual path
+# Path to the Spotify JSON file
+spotify_data_path = "/Users/kadirzabun/Desktop/Courses/DSA 210/Project/Python Files/Spotify Extended Streaming History/spotify_history_all.json"
 
-# Get all JSON files in the folder
-file_list = glob.glob(folder_path + '*.json')
+# Load Spotify JSON data
+with open(spotify_data_path, 'r') as f:
+    spotify_data = json.load(f)
 
-# Initialize an empty list to store DataFrames
-data_frames = []
+# Step 2: Create a DataFrame
+spotify_df = pd.DataFrame(spotify_data)
 
-# Loop through each file and read the data
-for file in file_list:
-    with open(file, 'r') as f:
-        data = json.load(f)
-        df = pd.DataFrame(data)
-        data_frames.append(df)
+# Step 3: Convert 'ts' (timestamp) to datetime
+spotify_df['endTime'] = pd.to_datetime(spotify_df['ts'])
 
-# Concatenate all DataFrames into one
-df = pd.concat(data_frames, ignore_index=True)
+#  Ensure 'ms_played' is numeric
+spotify_df['ms_played'] = pd.to_numeric(spotify_df['ms_played'], errors='coerce')
 
-# Ensure `ts` is datetime and extract month-year
-df['ts'] = pd.to_datetime(df['ts'])
-df['month_year'] = df['ts'].dt.to_period('M')
 
-# Calculate total listening time per month
-monthly_listening_time = df.groupby('month_year')['ms_played'].sum().reset_index()
-monthly_listening_time.rename(columns={'ms_played': 'total_listening_time'}, inplace=True)
 
-# Drop duplicate songs within each month
-distinct_songs = df[['month_year', 'master_metadata_track_name']].drop_duplicates()
+#  Ensure 'endTime' is in datetime format
+spotify_df['endTime'] = pd.to_datetime(spotify_df['endTime'], errors='coerce')
 
-# Count the number of distinct songs per month
-distinct_song_counts = distinct_songs.groupby('month_year')['master_metadata_track_name'].nunique().reset_index()
-distinct_song_counts.rename(columns={'master_metadata_track_name': 'distinct_songs_count'}, inplace=True)
+#  Extract the month-year from 'endTime'
+spotify_df['month'] = spotify_df['endTime'].dt.to_period('M')
 
-# Merge total listening time and distinct song counts
-merged_data = pd.merge(monthly_listening_time, distinct_song_counts, on='month_year')
+#  Aggregate total listening time per month
+monthly_listening_time = spotify_df.groupby('month')['ms_played'].sum()
 
-# Calculate average listening time per song
-merged_data['average_listening_time_per_song'] = merged_data['total_listening_time'] / merged_data['distinct_songs_count']
+#  Count the number of unique songs per month
+monthly_unique_songs = spotify_df.groupby('month')['spotify_track_uri'].nunique()
 
-# Convert ms to hours for better readability
-merged_data['average_listening_time_per_song_hours'] = merged_data['average_listening_time_per_song'] / (1000 * 60 * 60)
+#  Calculate average listening time per song
+average_listening_time_per_song = monthly_listening_time / monthly_unique_songs
 
-# Convert month-year to string for plotting
-merged_data['month_year'] = merged_data['month_year'].astype(str)
+#  Convert milliseconds to minutes for better readability
+average_listening_time_per_song_minutes = average_listening_time_per_song / (1000 * 60)
 
-# Plot the data
+#  Display the result
+print("Average Listening Time Per Song Per Month (minutes):")
+print(average_listening_time_per_song_minutes)
+
+#  Plot the results
 plt.figure(figsize=(12, 6))
-plt.plot(merged_data['month_year'], merged_data['average_listening_time_per_song_hours'], marker='o')
-plt.title('Average Listening Time Per Song Per Month')
-plt.xlabel('Month-Year')
-plt.ylabel('Average Listening Time Per Song (Hours)')
+average_listening_time_per_song_minutes.plot(kind='bar', color='purple', edgecolor='black')
+
+# Add labels, title, and formatting
+plt.title("Average Listening Time Per Song Per Month", fontsize=16)
+plt.xlabel("Month", fontsize=12)
+plt.ylabel("Average Listening Time (Minutes)", fontsize=12)
 plt.xticks(rotation=45)
-plt.grid()
 plt.tight_layout()
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+# Show the plot
 plt.show()
